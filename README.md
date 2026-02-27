@@ -5,6 +5,39 @@ Upload any CSV file, inspect its schema, clean the data automatically, and query
 
 ---
 
+## ⚡ Quick Start
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/spoo5/DataWeb_Hackathon.git
+cd DataWeb_Hackathon
+
+# 2. Install dependencies (Python 3.9+ required)
+pip install -r requirements.txt
+
+# 3. Launch the web app
+streamlit run app.py
+```
+
+Your browser will open automatically at **http://localhost:8501**.  
+If it doesn't, copy the URL shown in the terminal and paste it into your browser.
+
+### Try it immediately with the included sample CSV
+
+A ready-to-use sample dataset is included at `data/sample.csv`.  
+After launching the app, upload that file in the sidebar to explore all features right away.
+
+**Example queries to try with the sample data:**
+
+| Query | What it returns |
+|-------|----------------|
+| `What is the churn rate by gender?` | Churn % for Male vs Female |
+| `Show average MonthlyCharges by Contract` | Average monthly charge per contract type |
+| `Count customers by InternetService` | Number of customers per service type |
+| `Total charges by Contract` | Sum of TotalCharges grouped by contract |
+
+---
+
 ## Features
 
 | Step | Name | What it does |
@@ -22,15 +55,18 @@ Upload any CSV file, inspect its schema, clean the data automatically, and query
 
 ## Setup
 
+**Requirements:** Python 3.9+, pip
+
 ```bash
+# (Recommended) create and activate a virtual environment first
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+
+# Install all dependencies
 pip install -r requirements.txt
 ```
 
-Requirements:
-- Python 3.9+
-- `duckdb>=0.10.0`
-- `pandas>=2.0.0`
-- `streamlit>=1.32.0`
+Dependencies installed: `duckdb>=0.10.0`, `pandas>=2.0.0`, `streamlit>=1.32.0`
 
 ---
 
@@ -40,7 +76,8 @@ Requirements:
 streamlit run app.py
 ```
 
-Open the URL shown in your terminal (usually http://localhost:8501).
+The app opens at **http://localhost:8501** (printed in the terminal).  
+Press `Ctrl+C` in the terminal to stop the server.
 
 ---
 
@@ -81,6 +118,8 @@ Total charges by PaymentMethod
 │   ├── engine.py           # TruthEngine – DuckDB-powered engine (Steps 1-3, 5-7)
 │   ├── query_parser.py     # QueryParser – NL query → structured intent (Step 4)
 │   └── output_builder.py   # OutputBuilder – structured JSON response (Step 8)
+├── data/
+│   └── sample.csv          # Sample dataset for quick testing
 ├── requirements.txt        # Python dependencies
 ├── README.md               # This file
 └── tests/

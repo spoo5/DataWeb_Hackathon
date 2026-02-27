@@ -341,11 +341,12 @@ class TruthEngine:
         if metric == "count":
             select_parts.append("COUNT(*) AS count")
         elif metric == "churn_rate":
-            # Expect a column like 'Churn' with Yes/No or 1/0
+            # Support BOOLEAN (true), VARCHAR ('Yes','1'), and INTEGER (1) churn columns
             churn_col = metric_col or self._find_column("churn")
             if churn_col:
                 select_parts.append(
-                    f"ROUND(100.0 * SUM(CASE WHEN CAST(\"{churn_col}\" AS VARCHAR) IN ('Yes', '1') "
+                    f"ROUND(100.0 * SUM(CASE WHEN CAST(\"{churn_col}\" AS VARCHAR) "
+                    f"IN ('Yes', '1', 'true') "
                     f"THEN 1 ELSE 0 END) / NULLIF(COUNT(*), 0), 2) AS churn_rate"
                 )
             else:
